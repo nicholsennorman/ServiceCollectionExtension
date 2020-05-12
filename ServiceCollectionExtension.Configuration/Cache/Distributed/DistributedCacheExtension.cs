@@ -7,7 +7,7 @@ namespace ServiceCollectionExtension.Configuration.Cache
 {
     public static class DistributedCacheExtension
     {
-        public static CustomServiceBuilder UseDistributedCache(this CustomServiceBuilder serviceBuilder, bool clone = false)
+        public static CustomServiceBuilder AddDistributedCache(this CustomServiceBuilder serviceBuilder, bool clone = false)
         {
             // Check dependent services
             if (!serviceBuilder.Services.Any(s => s.ServiceType == typeof(IDistributedCache)))

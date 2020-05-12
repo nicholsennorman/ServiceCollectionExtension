@@ -38,9 +38,9 @@ namespace ServiceCollectionExtension.Sample
 
             services.AddCustomService(options =>
             {
-                options.UseInMemoryCache();
+                options.AddInMemoryCache();
                 //Uncomment below code if need to use Redis instead of in memory cache
-                //options.UseDistributedCache();
+                //options.AddDistributedCache();
             });
         }
 

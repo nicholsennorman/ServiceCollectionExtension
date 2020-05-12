@@ -8,7 +8,7 @@ namespace ServiceCollectionExtension.Configuration
 {
     public static class InMemoryCacheExtension
     {
-        public static CustomServiceBuilder UseInMemoryCache(this CustomServiceBuilder serviceBuilder)
+        public static CustomServiceBuilder AddInMemoryCache(this CustomServiceBuilder serviceBuilder)
         {
 
             // Check dependent services
