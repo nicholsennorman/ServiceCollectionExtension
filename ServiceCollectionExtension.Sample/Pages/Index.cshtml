@@ -6,5 +6,14 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>@Model.ApplicationTime</p>
+    <p>The cached time is: @Model.ApplicationTime</p>
+    @if (Model.IsCacheEnabled)
+    {
+        <p>Refresh the page to see that DateTime value will not change since the value his retrieved from the cache store</p>
+    }
+    else
+    {
+        <p>The cache is not enabled. This means that every refresh will show current time</p>
+        <p>If you use Redis Cache, please run the redis-server.exe redis.windows.conf from the Redis location</p>
+    }
 </div>

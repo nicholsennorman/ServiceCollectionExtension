@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,17 +21,26 @@ namespace ServiceCollectionExtension.Sample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Calling AddRazorPages() will register IMemoryCache concrete service implementation. 
+            //Hence, there is no need to call services.AddMemoryCache(); separately.
             services.AddRazorPages();
 
-            services.AddDistributedRedisCache(options =>
-            {
-                options.Configuration = "localhost";
-                options.InstanceName = "RedisInstance";
-            });
+            #region redis
+            //Download Redis from https://github.com/ServiceStack/redis-windows and extract it.
+            //Run redis-server.exe redis.windows.conf from the extracted folder location.
+            //Uncomment below code if need to use Redis instead of in memory cache
+            //services.AddDistributedRedisCache(options =>
+            //{
+            //    options.Configuration = "localhost";
+            //    options.InstanceName = "RedisInstance";
+            //});
+            #endregion redis
 
             services.AddCustomService(options =>
             {
-                options.UseDistributedCache();
+                options.UseInMemoryCache();
+                //Uncomment below code if need to use Redis instead of in memory cache
+                //options.UseDistributedCache();
             });
         }
 

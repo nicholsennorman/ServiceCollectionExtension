@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,22 @@ namespace ServiceCollectionExtension.Configuration.Cache
         /// <returns>The cached model, null it wasn't found</returns>
         public T Get<T>(string key)
         {
-            return Deserialize<T>(_cache.Get(key));
+            try
+            {
+                var value = _cache.Get(key);
+                return Deserialize<T>(_cache.Get(key));
+            }
+            catch(RedisConnectionException exception)
+            {
+                //TODO log the error but do not throw exception. 
+                //This is because cache is just an performance improvement instead of application main functionality
+                //application should work without cache enabled
+            }
+            catch(Exception exception)
+            {
+                //TODO log the error but do not throw exception. 
+            }
+            return default(T);
         }
 
         /// <summary>
@@ -42,7 +58,20 @@ namespace ServiceCollectionExtension.Configuration.Cache
         /// <param name="value">The model</param>
         public void Set<T>(string key, T value)
         {
-            _cache.Set(key, Serialize(value));
+            try
+            {
+                _cache.Set(key, Serialize(value));
+            }
+            catch (RedisConnectionException exception)
+            {
+                //TODO log the error but do not throw exception. 
+                //This is because cache is just an performance improvement instead of application main functionality
+                //application should work without cache enabled
+            }
+            catch (Exception exception)
+            {
+                //TODO log the error but do not throw exception. 
+            }
         }
 
         /// <summary>
@@ -51,7 +80,20 @@ namespace ServiceCollectionExtension.Configuration.Cache
         /// <param name="key">The unique key</param>
         public void Remove(string key)
         {
-            _cache.Remove(key);
+            try
+            {
+                _cache.Remove(key);
+            }
+            catch (RedisConnectionException exception)
+            {
+                //TODO log the error but do not throw exception. 
+                //This is because cache is just an performance improvement instead of application main functionality
+                //application should work without cache enabled
+            }
+            catch (Exception exception)
+            {
+                //TODO log the error but do not throw exception. 
+            }
         }
 
         /// <summary>

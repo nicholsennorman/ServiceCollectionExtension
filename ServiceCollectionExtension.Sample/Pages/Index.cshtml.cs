@@ -13,7 +13,8 @@ namespace ServiceCollectionExtension.Sample.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly ICache _cache;
-        public DateTime ApplicationTime { get; set; }
+        public DateTime? ApplicationTime { get; set; }
+        public bool IsCacheEnabled { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, ICache cache)
         {
@@ -23,7 +24,16 @@ namespace ServiceCollectionExtension.Sample.Pages
 
         public void OnGet()
         {
-            ApplicationTime = _cache.Get<DateTime>("DateTime");
+            ApplicationTime = _cache?.Get<DateTime>("DateTime");
+            if(ApplicationTime == null || ApplicationTime.Equals(default(DateTime)))
+            {
+                IsCacheEnabled = false;
+                ApplicationTime = DateTime.Now;
+            }
+            else
+            {
+                IsCacheEnabled = true;
+            }
         }
     }
 }
