@@ -31,7 +31,7 @@ namespace ServiceCollectionExtension.Configuration
         /// </summary>
         /// <param name="services">The current service collection</param>
         /// <returns>The updated service collection</returns>
-        public static IServiceCollection AddInMemoryCache(this IServiceCollection services)
+        private static IServiceCollection AddInMemoryCache(this IServiceCollection services)
         {
             return services.AddSingleton<ICache, InMemoryCache>();
         }
