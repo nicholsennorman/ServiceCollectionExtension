@@ -1,5 +1,5 @@
-# ServiceCollectionExtension
-[ServiceCollection Extension and Action<T> delegate Sample using ASP.NET Core](https://www.nicholsennorman.com/blog/servicecollection-extension)
+# ServiceCollection extension with Generic Action delegate
+The blog about this sample application can be found in my [website].(https://www.nicholsennorman.com/blog/servicecollection-extension)
 
 The framework used in this application:
 * .NET Core 3.1
